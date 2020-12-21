@@ -43,6 +43,7 @@ class JavbusPipeline(object):
         print(item['jav_sn']+'保存到数据库中！')
         main_sql='INSERT INTO jav VALUES (%s,%s,%s,%s,%s,%s,%s)'
         self.cur.execute(main_sql,info_values)
+        self.maria_connect.commit()
 
     def insert_cili(self,item):
         cili_info = item['jav_cili']
@@ -56,7 +57,8 @@ class JavbusPipeline(object):
             )
             cili_sql ='INSERT INTO javcili VALUES (%s,%s,%s,%s)'
             self.cur.execute(cili_sql, cav)
+            self.maria_connect.commit()
 
     def close_spider(self,spider):
-        self.maria_connect.commit()
+
         self.maria_connect.close()
